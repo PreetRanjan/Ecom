@@ -1,0 +1,44 @@
+﻿@model Ecom.ViewModels.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div>
+            <h5>Register</h5>
+        </div>
+        <div class="text-danger">
+            @Html.ValidationSummary()
+        </div>
+        @using (Html.BeginForm("Register", "Account"))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.LabelFor(x => x.Fullname)
+                @Html.TextBoxFor(x => x.Fullname, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Fullname, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Email)
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.MobileNo)
+                @Html.TextBoxFor(x => x.MobileNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.MobileNo, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Password)
+                @Html.TextBoxFor(x => x.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+            </div>
+            <div>
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

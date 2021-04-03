@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Ecom.Data.Product>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@if (TempData["Success"] !=null)
+{
+    <div class="alert alert-success alert-dismissible">
+        Item has been added to the cart.
+    </div>
+}
+<div class="container p-2">
+    <h5 class="text-primary">Products are displayed below</h5>
+</div>
+<div class="row justify-content-center">
+    @foreach (var p in Model)
+    {
+        <a href="/Product/AddToCart/@p.Id">
+            <div class="col-auto border p-2 m-2" style="max-width:18rem;">
+                @{
+                    var imgdata = Convert.ToBase64String(p.ProductImage);
+                }
+                <img style="height:150px;width:150px;" src="data:image/jpeg;base64,@imgdata" />
+                <div class="text-center">
+                    <h5>@p.ProductName</h5>
+                    <h5 class="font-weight-bold">@p.Price.ToString("C2")</h5>
+                    <hr />
+                    <button class="btn btn-primary btn-block">Add to cart</button>
+                </div>
+
+            </div>
+        </a>
+
+    }
+</div>

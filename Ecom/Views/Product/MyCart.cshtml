@@ -1,0 +1,56 @@
+﻿@model Ecom.ViewModels.CartDetailModel
+@{
+    ViewBag.Title = "MyCart";
+}
+<div class="container p-2">
+    <div class="card-header">
+        <h5>Shopping Cart</h5>
+    </div>
+    <div class="card-body">
+        @foreach (var item in Model.CartItems)
+        {
+        <div class="row m-2 p-2">
+            <div class="col-md-4">
+                @{
+                    var imgdata = Convert.ToBase64String(item.Product.ProductImage);
+                }
+                <img style="height:100px;width:100px;" src="data:image/jpeg;base64,@imgdata" />
+            </div>
+            <div class="col-md-4">
+                Product Name - @item.Product.ProductName
+                <br/>
+                Price - @item.Product.Price.ToString("C2")
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="/Product/DecCount/@item.ProductId" asp-action="Minus" asp-route-cartId="@item.Id" class="quantity-left-minus btn btn-danger btn-number btn-block" data-type="minus" data-field="">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z" />
+                        </svg>
+                    </a>
+                    <input readonly type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="@item.Quantity" min="1" max="10">
+
+                    <a href="/Product/IncCount/@item.ProductId" asp-action="Plus"  class="quantity-right-plus btn btn-success btn-number btn-block" data-type="plus" data-field="">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                        </svg>
+                    </a>
+                </div>
+                <hr/>
+                <a href="/Product/RemoveItem/@item.Id" class="btn btn-danger btn-block">Remove</a>
+            </div>
+        </div>
+        }
+        @if (Model.CartItems.Count == 0)
+        {
+    <div class="text-center">
+        <h5>There is nothing in your cart</h5>
+        <a href="/" class="btn btn-block btn-dark">Keep Shopping</a>
+    </div>
+            
+        }
+    </div>
+    <div class="card-footer">
+        <h4>Total amount - @Model.TotalPrice.ToString("C2")</h4>
+    </div>
+</div>
